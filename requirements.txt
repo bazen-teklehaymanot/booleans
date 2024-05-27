@@ -3,4 +3,4 @@ pandas
 matplotlib
 torch
 future
-pytorch
+torch
