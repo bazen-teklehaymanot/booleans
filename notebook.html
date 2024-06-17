@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Bazen T.">
 
 <title>Learning Multiple Boolean Functions</title>
 <style>
@@ -130,6 +131,12 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Bazen T. </p>
+          </div>
+  </div>
     
   
     
@@ -471,11 +478,157 @@ Figure&nbsp;10: MLP and KANs
 </figcaption>
 </figure>
 </div>
-<p>Due to their unique architecture, KANs can be powerful tools for learning Boolean functions. In this section, we explore KANs and analyze their behavior in contrast with MLP in the context of boolean functions.</p>
+<p>Due to their unique architecture, KANs can be powerful tools for learning Boolean functions. In this section, we experiment with KANs and analyze their behavior in contrast with MLP in the context of boolean functions.</p>
+<p>We start by implementing a simple KAN that accepts 8 bit inputs and outputs either 0 or 1 according to the XOR function. <a href="#fig-kan8" class="quarto-xref">Figure&nbsp;11</a> shows the model before training. There are 256 possible input combinations for 8 bit input, and we use 0.3 test set ratio for evaluation.</p>
+<div id="fig-kan8" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-kan8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./assets/images/kan-8bit.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kan8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: 8-bit input KANs
+</figcaption>
+</figure>
+</div>
+<p>After training the activation functions of the KAN are updated as shown in <a href="#fig-trained-kan8" class="quarto-xref">Figure&nbsp;12</a>. Moreover, the models can predict with 61% accuracy over the test set.</p>
+<div id="fig-trained-kan8" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-trained-kan8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./assets/images/trained-kan-8bit.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-trained-kan8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Trained 8-bit input KANs
+</figcaption>
+</figure>
+</div>
+<p>We further extend the KAN further to 16 bit input size and train the model with 0.3 test set ratio over 30,000 size dataset, the model achieves 53% accuracy. This is not close to a perfect representation, however doing extensive experiments and analysis with different hyperparameter and architectures is part of our future work.</p>
 </section>
 <section id="results-summary" class="level3">
 <h3 class="anchored" data-anchor-id="results-summary">Results &amp; Summary</h3>
-<p>In this project, we explored the capabilities of different neural network architectures in learning XOR functions of varying input sizes. We trained Multi-layer perceptrons, Recurrent Neural Networks, and Kolmogorov-Arnold Networks to learn XOR functions with 16, 32, and 64-bit input sizes. The results showed that the LSTM model outperformed the other model in learning XOR functions, achieving a perfect representation of the dataset. The MLP with four hidden layers performed better than the MLP with one hidden layer, indicating that the number of hidden layers can impact the network’s performance. The KANs didn’t show promising results in learning XOR functions, however, further analysis is required to understand the behavior of KANs and more specifically their performance in learning boolean functions.</p>
+<p>In this project, we explored the capabilities of different neural network architectures in learning XOR functions of varying input sizes. We trained Multi-layer perceptrons, Recurrent Neural Networks, and Kolmogorov-Arnold Networks to learn XOR functions with 16, 32, and 64-bit input sizes. Architectures that process the input as a smaller group of bits, such as LSTM, are more effective in learning XOR functions. The number of hidden layers in MLPs can also impact the network’s performance.</p>
+<div style="width:85%; margin:auto">
+<div id="tbl-results" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Number of bits</th>
+<th>Training Size</th>
+<th>Test Size</th>
+<th>Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MLP (1 hidden layer)</td>
+<td>16</td>
+<td>10,000</td>
+<td>50,000</td>
+<td>0.50</td>
+</tr>
+<tr class="even">
+<td>MLP (1 hidden layer)</td>
+<td>32</td>
+<td>20,000</td>
+<td>200,000</td>
+<td>0.50</td>
+</tr>
+<tr class="odd">
+<td>MLP (1 hidden layer)</td>
+<td>64</td>
+<td>40,000</td>
+<td>400,000</td>
+<td>0.50</td>
+</tr>
+<tr class="even">
+<td>MLP (4 hidden layers)</td>
+<td>16</td>
+<td>10,000</td>
+<td>50,000</td>
+<td>0.97</td>
+</tr>
+<tr class="odd">
+<td>MLP (4 hidden layers)</td>
+<td>32</td>
+<td>20,000</td>
+<td>200,000</td>
+<td>0.50</td>
+</tr>
+<tr class="even">
+<td>MLP (4 hidden layers)</td>
+<td>64</td>
+<td>40,000</td>
+<td>400,000</td>
+<td>0.50</td>
+</tr>
+<tr class="odd">
+<td>RNN</td>
+<td>16</td>
+<td>1,000</td>
+<td>50,000</td>
+<td>0.49</td>
+</tr>
+<tr class="even">
+<td>RNN</td>
+<td>32</td>
+<td>1,000</td>
+<td>200,000</td>
+<td>0.48</td>
+</tr>
+<tr class="odd">
+<td>RNN</td>
+<td>64</td>
+<td>1,000</td>
+<td>400,000</td>
+<td>0.52</td>
+</tr>
+<tr class="even">
+<td>LSTM</td>
+<td>16</td>
+<td>1,000</td>
+<td>50,000</td>
+<td>1.00</td>
+</tr>
+<tr class="odd">
+<td>LSTM</td>
+<td>32</td>
+<td>1,000</td>
+<td>200,000</td>
+<td>1.00</td>
+</tr>
+<tr class="even">
+<td>LSTM</td>
+<td>64</td>
+<td>1,000</td>
+<td>400,000</td>
+<td>1.00</td>
+</tr>
+<tr class="odd">
+<td>KAN</td>
+<td>8</td>
+<td>179</td>
+<td>77</td>
+<td>0.61</td>
+</tr>
+<tr class="even">
+<td>KAN</td>
+<td>16</td>
+<td>20,000</td>
+<td>10,000</td>
+<td>0.53</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Performance summary of different neural network architectures in learning XOR functions.
+</figcaption>
+</figure>
+</div>
+</div>
+<p>The result summary in <a href="#tbl-results" class="quarto-xref">Table&nbsp;3</a> shows that the LSTM model outperformed the other model in learning XOR functions, achieving a perfect representation of the dataset. The MLP with four hidden layers performed better than the MLP with one hidden layer, indicating that the number of hidden layers can impact the network’s performance. The KANs didn’t show promising results in learning XOR functions, however, further analysis is required to understand the behavior of KANs and more specifically their performance in learning boolean functions.</p>
 </section>
 <section id="references" class="level3">
 <h3 class="anchored" data-anchor-id="references">References</h3>
