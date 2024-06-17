@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="notebook_files/libs/clipboard/clipboard.min.js"></script>
@@ -34,6 +54,49 @@ ul.task-list li input[type="checkbox"] {
 <link href="notebook_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="notebook_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -45,10 +108,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
-  <li><a href="#sub-title" id="toc-sub-title" class="nav-link" data-scroll-target="#sub-title">Sub Title</a></li>
-  </ul></li>
+  <li><a href="#boolean-functions" id="toc-boolean-functions" class="nav-link active" data-scroll-target="#boolean-functions">Boolean Functions</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">Dataset</a></li>
+  <li><a href="#perceptron" id="toc-perceptron" class="nav-link" data-scroll-target="#perceptron">Perceptron</a></li>
+  <li><a href="#multi-layer-perceptron" id="toc-multi-layer-perceptron" class="nav-link" data-scroll-target="#multi-layer-perceptron">Multi-Layer Perceptron</a></li>
+  <li><a href="#recurrent-neural-networks" id="toc-recurrent-neural-networks" class="nav-link" data-scroll-target="#recurrent-neural-networks">Recurrent Neural Networks</a></li>
+  <li><a href="#kolmogorov-arnold-networks" id="toc-kolmogorov-arnold-networks" class="nav-link" data-scroll-target="#kolmogorov-arnold-networks">Kolmogorov-Arnold Networks</a></li>
+  <li><a href="#results-summary" id="toc-results-summary" class="nav-link" data-scroll-target="#results-summary">Results &amp; Summary</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
 </div>
@@ -73,11 +140,353 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<section id="sub-title" class="level3">
-<h3 class="anchored" data-anchor-id="sub-title">Sub Title</h3>
+<p>Boolean functions, which map binary inputs to binary outputs, are fundamental to digital computing. Understanding how neural networks learn and represent these functions is essential for advancing machine learning applications. This project focuses on training neural networks to accurately learn multiple Boolean functions. Specifically, we aim to determine how closely different neural network architectures can approximate the ideal representations of these functions. Our objective is to analyze the degree of this approximation and its impact on the networks’ ability to generalize beyond the training data. By addressing these questions, we seek to enhance our understanding of the capabilities and limitations of neural networks in representing Boolean functions.</p>
+<section id="boolean-functions" class="level3">
+<h3 class="anchored" data-anchor-id="boolean-functions">Boolean Functions</h3>
+<p>Boolean functions are mathematical functions that take binary inputs and produce binary outputs. They are commonly used in computer science and digital electronics to model logical operations. Boolean functions are defined by their truth tables, which specify the output for each possible combination of inputs, <a href="#tbl-truthtable" class="quarto-xref">Table&nbsp;1</a> shows the truth table for the AND, OR, and XOR functions with two binary inputs.</p>
+<div style="width:80%; margin:auto">
+<div id="tbl-truthtable" class="quarto-layout-panel anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-truthtable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="tbl-truthtable" style="flex-basis: 33.3%;justify-content: center;">
+<div id="tbl-first" class="quarto-float anchored">
+<figure class="quarto-float quarto-subfloat-tbl figure">
+<div aria-describedby="tbl-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">X</th>
+<th style="text-align: left;">Y</th>
+<th style="text-align: center;">output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-tbl" id="tbl-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) AND
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="tbl-truthtable" style="flex-basis: 33.3%;justify-content: center;">
+<div id="tbl-second" class="quarto-float anchored">
+<figure class="quarto-float quarto-subfloat-tbl figure">
+<div aria-describedby="tbl-second-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">X</th>
+<th style="text-align: left;">Y</th>
+<th style="text-align: center;">Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-tbl" id="tbl-second-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) OR
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="tbl-truthtable" style="flex-basis: 33.3%;justify-content: center;">
+<div id="tbl-third" class="quarto-float anchored">
+<figure class="quarto-float quarto-subfloat-tbl figure">
+<div aria-describedby="tbl-third-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">X</th>
+<th style="text-align: left;">Y</th>
+<th style="text-align: center;">Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-tbl" id="tbl-third-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) XOR
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-truthtable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Truth table for AND, OR, and XOR boolean functions.
+</figcaption>
+</figure>
+</div>
+</div>
 </section>
+<section id="dataset" class="level3">
+<h3 class="anchored" data-anchor-id="dataset">Dataset</h3>
+<p>When working with an input size of <span class="math inline">N</span> bits, the AND and OR functions can require a change of up to <span class="math inline">N</span> bits to switch the output from 0 to 1 or vice versa. However, the XOR function only needs a change in one bit to achieve the same output switch. This property makes XOR a more complex learning function than AND and OR. Due to this, we will emphasize XORs in this article. Our dataset comprises XOR functions with 16, 32, and 64-bit input sizes.</p>
+<div style="width:60%; margin:auto">
+<div id="tbl-combinations" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-combinations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th>Bits</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>16</td>
+<td>65,536</td>
+</tr>
+<tr class="even">
+<td>32</td>
+<td>4,294,967,296</td>
+</tr>
+<tr class="odd">
+<td>64</td>
+<td>18,446,744,073,709,551,616</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-combinations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Number of combinations for different input sizes
+</figcaption>
+</figure>
+</div>
+</div>
+<p>For the different length of bits, the total input size is shown in <a href="#tbl-combinations" class="quarto-xref">Table&nbsp;2</a>. The dataset is created by randomly sampling input combinations and calculating the corresponding outputs using the XOR function. It’s worth noting that an input size of <span class="math inline">N</span> bits results in <span class="math inline">2^N</span> possible input combinations.</p>
+</section>
+<section id="perceptron" class="level3">
+<h3 class="anchored" data-anchor-id="perceptron">Perceptron</h3>
+<p>Perceptron is the simplest form of a neural network. It consists of a single layer of input and output nodes. The perceptron’s output is calculated by taking a weighted sum of the input values and passing it through an activation function. The weights are adjusted during training to minimize errors between the predicted and actual outputs.</p>
+<div id="fig-perceptron" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-perceptron-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./assets/images/perceptron.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-perceptron-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Perceptron
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The perceptron can learn linearly separable functions, such as the AND and OR functions, but it cannot learn non-linear functions like the XOR function.</p>
+</div>
+</div>
+</div>
+<p>For the small input of boolean functions AND and OR, we can adjust the weights and bias to learn the function as shown in <a href="#fig-perceptrongates" class="quarto-xref">Figure&nbsp;2</a>.</p>
+<div id="fig-perceptrongates" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-perceptrongates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./assets/images/perceptron-gates.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-perceptrongates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: AND, OR, and NOT gates represented using a perceptron
+</figcaption>
+</figure>
+</div>
+<p>The number of weights and biases increases exponentially for boolean functions with larger input sizes. This makes it difficult to learn complex tasks with a perceptron, and we need more complicated neural network architectures to understand these functions. In this project, we explore Multi-layer perceptron, Recurrent Neural Networks, and Kolmogorov-Arnold Networks.</p>
+</section>
+<section id="multi-layer-perceptron" class="level3">
+<h3 class="anchored" data-anchor-id="multi-layer-perceptron">Multi-Layer Perceptron</h3>
+<p>A multi-layer perceptron (MLP) is a neural network with multiple layers of nodes, including an input layer, one or more hidden layers, and an output layer. Each node in the different layers is a perceptron using different activation functions. The hidden layers allow the network to learn non-linear functions by introducing non-linear activation functions, such as the sigmoid or ReLU function. The network weights and biases are adjusted during training using backpropagation to minimize the error between the predicted and actual outputs.</p>
+<p>In a multi-layer perceptron that contains only one hidden layer, the minimum number of neurons required to learn the XOR function of <span class="math inline">N</span> input size is <span class="math inline">N^{1/2}</span> <span class="citation" data-cites="irprsm1997">(see <a href="#ref-irprsm1997" role="doc-biblioref">Impagliazzo, Paturi, and Saks 1997</a>)</span>. Moreover, the best-known implementation has <span class="math inline">O(N)</span> neurons. Considering this, we train two MLPs with different hidden layer sizes to learn XOR functions. The first MLP has only one hidden layer with <span class="math inline">4N</span> neurons.</p>
+<div id="fig-shallow-mlp" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-shallow-mlp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./assets/images/shallow-mlp.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-shallow-mlp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: MLP with one hidden layer.
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-deep-mlp" class="quarto-xref">Figure&nbsp;4</a> shows an example of the second MLP, which has four hidden layers, each with <span class="math inline">N</span> number of neurons.</p>
+<div id="fig-deep-mlp" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deep-mlp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./assets/images/deep-mlp.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deep-mlp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: MLP with four hidden layer.
+</figcaption>
+</figure>
+</div>
+<p>The total number of parameters in the two networks is close, and our goal is to compare the performance of these networks in learning XOR functions over different input size and observe the impact of the hidden layers.</p>
+<p>We train both MLPs using the Adam optimizer with a learning rate of 0.001 and a batch size of 32. The networks are trained for 50 epochs, and the loss is calculated using the binary cross-entropy loss function. We randomly sample 10,000, 20,000, and 40,000 training input combinations for the 16, 32, and 64-bit XOR functions, respectively. We evaluate the networks on a separate test set of 50,000, 200,000, and 400,000 input combinations for the 16, 32, and 64-bit XOR functions, respectively.</p>
+<div id="fig-shallow-mlp-performance" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-shallow-mlp-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./assets/images/shallow-mlp-performance.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-shallow-mlp-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: MLP with 1 hidden layer performance
+</figcaption>
+</figure>
+</div>
+<p>The performance of the MLP with one hidden layer is shown in <a href="#fig-shallow-mlp-performance" class="quarto-xref">Figure&nbsp;6</a>. The network loss and accuracy are going up and down during training, indicating that the network is not learning the XOR function effectively. Moreover, the accuracy over the test set is close to 0.5, which is the accuracy of a random guess.</p>
+<div id="fig-shallow-mlp-performance" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-shallow-mlp-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./assets/images/deep-mlp-performance.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-shallow-mlp-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: MLP with 4 hidden layers performance
+</figcaption>
+</figure>
+</div>
+<p>In the case of the MLP with four hidden layers, the network loss performance for input size of 32 and 64 bits is somewhat similar to the model with one hidden layer. However, the model performance over the 16 bits input size is significantly better than the one layer MLP. Moreover, the accuracy for 16 bit input over the test set is 0.97.</p>
+</section>
+<section id="recurrent-neural-networks" class="level3">
+<h3 class="anchored" data-anchor-id="recurrent-neural-networks">Recurrent Neural Networks</h3>
+<p>Recurrent Neural Networks (RNNs) are a type of neural network that can process data sequences. They accept the output of the previous step as input to the current step along with the current input, which allows RNNs to maintain a state or memory of the prior steps, making them suitable for processing sequential data. In this project, we formulate the XOR function as a sequence modeling problem, processing the input in small groups of bits at a time.</p>
+<p>Parity functions(XORs) return a value of one if the number of ones in the input value is odd and zero if the number of ones is even. This unique characteristic of XORs allows us to view the inputs as a sequence of small groups. In this experiment, we delve into the problem-solving aspect of how to represent the boolean using recurrent neural networks by processing small input units.</p>
+<div id="fig-rnn" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rnn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./assets/images/rnn.gif" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rnn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: RNNs for boolean functions
+</figcaption>
+</figure>
+</div>
+<p>Processing input of length N as a group of small units simplifies the complexity analysis over the network. Considering each input element as a separate sequence unit effectively converts the <span class="math inline">N</span>-bit problem into a 2-bit problem, one coming from the input and the other from the layer’s output. Furthermore, we set the initial state of the RNN to zero, as shown in <a href="#fig-rnn" class="quarto-xref">Figure&nbsp;7</a>.</p>
+<p>For different input sizes, we train the RNN with 1000 training set, 10000 validation set. Moreover, the testing set contains 50000, 200000, and 400000 for 16, 32, and 64 bits, respectively. The models are trained using the Adam optimizer with a learning rate of 0.01 and a batch size of 8. The model’s performance is evaluated using the binary cross-entropy loss and accuracy metrics.</p>
+<p>The RNN model did not converge to the ideal XOR function after training over different input sizes of 16, 32, and 64 bits. The model’s performance was poor, failing to learn the XOR function with fluctuating loss and accuracy, as shown in <a href="#fig-rnn-performance" class="quarto-xref">Figure&nbsp;8</a>.</p>
+<div id="fig-rnn-performance" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rnn-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./assets/images/rnn-performance.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rnn-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: RNNs model performance
+</figcaption>
+</figure>
+</div>
+<p>All the input values are 0 and 1, as a result diminishing gradients may be causing the model to struggle to learn the XOR function. To address this issue, we employ gated RNNs, such as Long Short-Term Memory (LSTM) and Gated Recurrent Unit (GRU), designed to mitigate the vanishing gradient problem.</p>
+<div id="fig-lstm-performance" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lstm-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./assets/images/lstm-performance.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lstm-performance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: LSTM model performance
+</figcaption>
+</figure>
+</div>
+<p>The LSTM model outperformed the RNN model, achieving a significantly lower loss and higher accuracy over 16, 32, and 64-bit input sizes, as shown in <a href="#fig-lstm-performance" class="quarto-xref">Figure&nbsp;9</a>. The model achieves a perfect representation of the randomly sampled dataset, indicating that the LSTM model can learn the XOR function more effectively with larger input sizes.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Perfect representation is when a model learns to predict the output of a boolean function with 100% accuracy.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="kolmogorov-arnold-networks" class="level3">
+<h3 class="anchored" data-anchor-id="kolmogorov-arnold-networks">Kolmogorov-Arnold Networks</h3>
+<p>Kolmogorov–Arnold Networks (KANs) are a novel neural network architecture inspired by the Kolmogorov-Arnold representation theorem<span class="citation" data-cites="liu2024kan">(see <a href="#ref-liu2024kan" role="doc-biblioref">Liu et al. 2024</a>)</span>. Unlike Multilayer Perceptrons (MLPs), which have fixed node activation functions, KANs have learnable activation functions on edges. As a result, KANs have no linear weight matrices; a learnable 1D function replaces each weight parameter parameterized as a spline. <a href="#fig-mlp-v-kan" class="quarto-xref">Figure&nbsp;10</a> shows the difference between MLP and KAN architectures in detail.</p>
+<div id="fig-mlp-v-kan" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mlp-v-kan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./assets/images/mlp-v-kan.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mlp-v-kan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: MLP and KANs
+</figcaption>
+</figure>
+</div>
+<p>Due to their unique architecture, KANs can be powerful tools for learning Boolean functions. In this section, we explore KANs and analyze their behavior in contrast with MLP in the context of boolean functions.</p>
+</section>
+<section id="results-summary" class="level3">
+<h3 class="anchored" data-anchor-id="results-summary">Results &amp; Summary</h3>
+<p>In this project, we explored the capabilities of different neural network architectures in learning XOR functions of varying input sizes. We trained Multi-layer perceptrons, Recurrent Neural Networks, and Kolmogorov-Arnold Networks to learn XOR functions with 16, 32, and 64-bit input sizes. The results showed that the LSTM model outperformed the other model in learning XOR functions, achieving a perfect representation of the dataset. The MLP with four hidden layers performed better than the MLP with one hidden layer, indicating that the number of hidden layers can impact the network’s performance. The KANs didn’t show promising results in learning XOR functions, however, further analysis is required to understand the behavior of KANs and more specifically their performance in learning boolean functions.</p>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-irprsm1997" class="csl-entry" role="listitem">
+Impagliazzo, Russell, Ramamohan Paturi, and Michael E. Saks. 1997. <em>Size–Depth Tradeoffs for Threshold Circuits</em>. <em>SIAM Journal on Computing</em>.
+</div>
+<div id="ref-liu2024kan" class="csl-entry" role="listitem">
+Liu, Ziming, Yixuan Wang, Sachin Vaidya, Fabian Ruehle, James Halverson, Marin Soljačić, Thomas Y. Hou, and Max Tegmark. 2024. <span>“KAN: Kolmogorov-Arnold Networks.”</span> <a href="https://arxiv.org/abs/2404.19756">https://arxiv.org/abs/2404.19756</a>.
+</div>
+</div>
 </section>
 
 </main>
