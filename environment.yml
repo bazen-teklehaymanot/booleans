@@ -1,0 +1,18 @@
+name: booleans
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - numpy
+  - pandas
+  - matplotlib
+  - ipykernel
+  - ipywidgets
+  - future
+  - pytorch
+  - pip:
+    - pykan
+    - scikit-learn
+    - tqdm
